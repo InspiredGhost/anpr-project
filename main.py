@@ -16,7 +16,7 @@ license_plate_detector = YOLO(
     '/Users/inspiredghost/Documents/ModelData/code/runs/detect/train4/weights/best.pt')  # My Model
 
 # Load Video
-cap = cv2.VideoCapture('/Users/inspiredghost/Documents/ModelData/videos/20231111_131128.mp4')
+cap = cv2.VideoCapture('/Users/inspiredghost/Documents/ModelData/videos/20231111_130030.mp4')
 
 items = [0, 1]
 
@@ -26,7 +26,7 @@ ret = True
 while ret:
     frame_nmr += 1
     ret, frame = cap.read()
-    if ret and frame_nmr < 2000:
+    if ret and frame_nmr < 5000:
         # if ret :
         results[frame_nmr] = {}
         print("Frame #", frame_nmr)
@@ -42,8 +42,9 @@ while ret:
         print(detections_)
         if detections_ is not None and len(detections_) > 0:
             track_ids = motion_tracker.update(np.asarray(detections_))
-        # else:
-        # track_ids = motion_tracker.update(np.empty((0, 5)))
+        else:
+            frame_nmr -= 1
+            track_ids = motion_tracker.update(np.empty((0, 5)))
 
         # Detect Licence Plates
         license_plates = license_plate_detector(frame)[0]
@@ -65,7 +66,7 @@ while ret:
 
             # Read Licence Plate
             licence_plate_text, license_plate_score = util.read_license_plate(license_plate_crop_threshold)
-
+            print("Licence Plate:", licence_plate_text, "at", license_plate_score, "%" )
             if licence_plate_text is not None:
                 results[frame_nmr][car_id] = {'car': {'bbox': [xcar1, ycar1, xcar2, ycar2]},
                                               'license_plate': {'bbox': [x1, y1, x2, y2],

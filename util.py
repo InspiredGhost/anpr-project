@@ -127,6 +127,7 @@ def read_license_plate(license_plate_crop):
 
         text = text.upper().replace(' ', '')
 
+
         if license_complies_format(text):
             return format_license(text), score
 
