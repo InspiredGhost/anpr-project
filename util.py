@@ -59,6 +59,7 @@ def write_csv(results, output_path):
 
 
 def license_complies_format(text):
+    return True
     """
     Check if the license plate text complies with the required format.
 
@@ -67,6 +68,7 @@ def license_complies_format(text):
 
     Returns:
         bool: True if the license plate complies with the format, False otherwise.
+    """
     """
     if len(text) != 7:
         return False
@@ -81,9 +83,10 @@ def license_complies_format(text):
         return True
     else:
         return False
-
+    """
 
 def format_license(text):
+    return text
     """
     Format the license plate text by converting characters using the mapping dictionaries.
 
@@ -92,6 +95,7 @@ def format_license(text):
 
     Returns:
         str: Formatted license plate text.
+    """
     """
     license_plate_ = ''
     mapping = {0: dict_int_to_char, 1: dict_int_to_char, 4: dict_int_to_char, 5: dict_int_to_char, 6: dict_int_to_char,
@@ -103,7 +107,7 @@ def format_license(text):
             license_plate_ += text[j]
 
     return license_plate_
-
+    """
 
 def read_license_plate(license_plate_crop):
     """
