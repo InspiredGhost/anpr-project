@@ -38,6 +38,8 @@ out = cv2.VideoWriter('./out.mp4', fourcc, fps, (width, height))
 
 license_plate = {}
 for car_id in np.unique(results['car_id']):
+
+    print(car_id)
     max_ = np.amax(results[results['car_id'] == car_id]['license_number_score'])
     license_plate[car_id] = {'license_crop': None,
                              'license_plate_number': results[(results['car_id'] == car_id) &
